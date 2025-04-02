@@ -23,7 +23,7 @@ public class PlaylistService {
 	
 	public List<AllPlaylistDTO> getAllPlaylists(){
 		return this.playlistRepository.findAll().stream()
-				.map(playlist -> new AllPlaylistDTO(playlist.getId(), playlist.getName())).collect(Collectors.toList());
+				.map(playlist -> new AllPlaylistDTO(playlist.getId(), playlist.getName(), playlist.getImage())).collect(Collectors.toList());
 	}
 	
 	public PlaylistDetailDTO getPlaylistById(Long id){
@@ -33,7 +33,7 @@ public class PlaylistService {
 		List<TrackDTO> trackDTOs = playlist.getTracks().stream()
 				.map(track -> new TrackDTO(track.getId(), track.getTitle(), track.getDuration())).collect(Collectors.toList());
 		
-		return new PlaylistDetailDTO(playlist.getId(), playlist.getName(), trackDTOs);
+		return new PlaylistDetailDTO(playlist.getId(), playlist.getName(), playlist.getImage(), trackDTOs);
 	}
 	
 	public Playlist createPlaylist(Playlist playlist) {

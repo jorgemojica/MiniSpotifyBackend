@@ -56,6 +56,7 @@ public class ArtistService {
 		if(!newArtist.equals(null)) {
 			artist.setName(newArtist.getName());
 			artist.setCountry(newArtist.getCountry());
+			artist.setImage(newArtist.getImage());
 			return this.artistRepository.save(artist);
 		}
 		else {

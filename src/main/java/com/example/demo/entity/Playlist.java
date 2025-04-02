@@ -24,6 +24,9 @@ public class Playlist {
 	@Column(name = "name")
 	private String name;
 	
+	@Column(name = "image")
+	private String image;
+	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
@@ -40,9 +43,11 @@ public class Playlist {
 		
 	}
 
-	public Playlist(Long id, String name, User user, List<Track> tracks) {
+	public Playlist(Long id, String name, String image, User user, List<Track> tracks) {
+		super();
 		this.id = id;
 		this.name = name;
+		this.image = image;
 		this.user = user;
 		this.tracks = tracks;
 	}
@@ -61,6 +66,14 @@ public class Playlist {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	public User getUser() {
