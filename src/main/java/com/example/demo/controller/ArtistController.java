@@ -51,8 +51,8 @@ public class ArtistController {
 	}
 	
 	@PutMapping(value = "{id}")
-	public ResponseEntity<Artist> updateArtist(@PathVariable("id") Long id, @RequestBody Artist artist){
-		Artist updatedArtist = this.artistService.updateArtist(id, artist);
+	public ResponseEntity<ArtistDetailDTO> updateArtist(@PathVariable("id") Long id, @RequestBody Artist artist){
+		ArtistDetailDTO updatedArtist = this.artistService.updateArtist(id, artist);
 		return ResponseEntity.ok(updatedArtist);
 	}
 

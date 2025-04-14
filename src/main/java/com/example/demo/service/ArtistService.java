@@ -64,7 +64,7 @@ public class ArtistService {
 		}
 	}
 	
-	public Artist updateArtist(Long id, Artist udpArtist) {
+	public ArtistDetailDTO updateArtist(Long id, Artist udpArtist) {
 		Optional<Artist> artist = this.artistRepository.findById(id);
 		if(artist.isPresent()) {
 			Artist newArtist = artist.get();
@@ -72,7 +72,7 @@ public class ArtistService {
 			newArtist.setCountry(udpArtist.getCountry());
 			newArtist.setImage(udpArtist.getImage());
 			this.artistRepository.save(newArtist);
-			return newArtist;
+			return new ArtistDetailDTO(null, newArtist.getName(), newArtist.getCountry(), newArtist.getImage(), null);
 		}
 		else {
 			return null;
