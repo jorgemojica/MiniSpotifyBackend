@@ -18,20 +18,20 @@ public class ArtistReportService {
 	
 	public byte[] exportArtistsDTOReport(List<AllArtistsDTO> artistDTOs) throws Exception {
 
-        // Cargar plantilla
+        // Charging the report template
         InputStream reportStream = new ClassPathResource("reports/artist_report.jrxml").getInputStream();
         JasperReport jasperReport = JasperCompileManager.compileReport(reportStream);
 
-        // Crear datasource desde lista de DTOs
+        // Getting the data source
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(artistDTOs);
 
-        // Parámetros si necesitas pasarlos al reporte
+        // Params if needed
         HashMap<String, Object> parameters = new HashMap<>();
 
-        // Llenar el reporte
+        // Fill report
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
 
-        // Exportar a PDF
+        // Export PDF
         return JasperExportManager.exportReportToPdf(jasperPrint);
     }
 

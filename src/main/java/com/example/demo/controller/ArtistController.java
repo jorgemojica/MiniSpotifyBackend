@@ -18,9 +18,13 @@ import com.example.demo.DTO.TrackDTO;
 import com.example.demo.entity.Artist;
 import com.example.demo.service.ArtistService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("api/artist")
+@Tag(name = "Artist", description = "Endpoints for managing Artists")
 public class ArtistController {
 	
 	@Autowired
@@ -31,33 +35,39 @@ public class ArtistController {
 	}
 	
 	@GetMapping
+	@Operation(summary = "Listing all artists")
 	public List<AllArtistsDTO> listArtists(){
 		return this.artistService.listArtists();
 	}
 	
 	@RequestMapping(value = "{id}")
+	@Operation(summary = "Finding an artist by specifying an id")
 	public ResponseEntity<ArtistDetailDTO> getArtistById(@PathVariable("id") Long id) {
 		return ResponseEntity.ok(this.artistService.getArtistById(id));
 	}
 	
 	@DeleteMapping(value = "{id}")
+	@Operation(summary = "Deleting an artist by specifying an id")
 	public ResponseEntity<String> deleteArtist(@PathVariable("id") Long id) {
 		return ResponseEntity.ok(this.artistService.deleteArtist(id));
 	}
 	
 	@PostMapping
+	@Operation(summary = "Creating an artist by passing artist data")
 	public ResponseEntity<Artist> createArtist(@RequestBody Artist newArtist) {
 		Artist artist = this.artistService.createArtist(newArtist);
 		return ResponseEntity.ok(artist);
 	}
 	
 	@PutMapping(value = "{id}")
+	@Operation(summary = "Updating an artist by specifying artist fields")
 	public ResponseEntity<ArtistDetailDTO> updateArtist(@PathVariable("id") Long id, @RequestBody Artist artist){
 		ArtistDetailDTO updatedArtist = this.artistService.updateArtist(id, artist);
 		return ResponseEntity.ok(updatedArtist);
 	}
 
 	@GetMapping("/country/{country}")
+	@Operation(summary = "Finding artists by country")
 	public ResponseEntity<List<ArtistDetailDTO>> findByCountry(@PathVariable("country") String country){
 		List<ArtistDetailDTO> artistDetailDTOs = this.artistService.findByCountry(country);
 		if(artistDetailDTOs.isEmpty()) {
@@ -67,6 +77,7 @@ public class ArtistController {
 	}
 	
 	@GetMapping("/selection/{country}")
+	@Operation(summary = "Finding tracks by country")
 	public ResponseEntity<List<TrackDTO>> findTracksByCountry(@PathVariable("country") String country){
 		List<TrackDTO> trackDTOs = this.artistService.findTracksByCountry(country);
 		if(trackDTOs.isEmpty()) {
