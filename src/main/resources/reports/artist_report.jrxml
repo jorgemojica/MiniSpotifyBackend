@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              name="artist_report" pageWidth="595" pageHeight="842" columnWidth="555"
+              leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7563963c-003c-49e2-be4e-24a8f1445091">
+    <queryString>
+        <![CDATA[]]> <!-- Se usa si vas a pasar datos desde Java -->
+    </queryString>
+    <field name="name" class="java.lang.String"/>
+    <field name="country" class="java.lang.String"/>
+
+    <title>
+	    <band height="50">
+	        <textField textAdjust="StretchHeight">
+	            <reportElement x="0" y="0" width="555" height="30"/>
+	            <textElement textAlignment="Center" verticalAlignment="Middle">
+	                <font size="18" isBold="true"/>
+	            </textElement>
+	            <textFieldExpression><![CDATA["Reporte de Artistas"]]></textFieldExpression>
+	        </textField>
+	    </band>
+	</title>
+    
+
+    <detail>
+        <band height="20">
+            <textField>
+                <reportElement x="0" y="0" width="200" height="20"/>
+                <textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="200" y="0" width="200" height="20"/>
+                <textFieldExpression><![CDATA[$F{country}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+</jasperReport>

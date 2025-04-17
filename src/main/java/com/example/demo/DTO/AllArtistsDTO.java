@@ -4,15 +4,17 @@ public class AllArtistsDTO {
 	
 	private Long id;
 	private String name;
+	private String country;
 	private String image;
 	
 	public AllArtistsDTO() {
 		
 	}
 
-	public AllArtistsDTO(Long id, String name, String image) {
+	public AllArtistsDTO(Long id, String name, String country, String image) {
 		this.id = id;
 		this.name = name;
+		this.country = country;
 		this.image = image;
 	}
 
@@ -30,6 +32,14 @@ public class AllArtistsDTO {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
 	}
 
 	public String getImage() {
