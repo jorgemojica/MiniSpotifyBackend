@@ -44,7 +44,6 @@ public class Playlist {
 	}
 
 	public Playlist(Long id, String name, String image, User user, List<Track> tracks) {
-		super();
 		this.id = id;
 		this.name = name;
 		this.image = image;
