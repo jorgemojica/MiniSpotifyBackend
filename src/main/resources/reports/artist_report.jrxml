@@ -3,7 +3,7 @@
               name="artist_report" pageWidth="595" pageHeight="842" columnWidth="555"
               leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7563963c-003c-49e2-be4e-24a8f1445091">
     <queryString>
-        <![CDATA[]]> <!-- Se usa si vas a pasar datos desde Java -->
+        <![CDATA[]]>
     </queryString>
     <field name="name" class="java.lang.String"/>
     <field name="country" class="java.lang.String"/>
@@ -15,22 +15,56 @@
 	            <textElement textAlignment="Center" verticalAlignment="Middle">
 	                <font size="18" isBold="true"/>
 	            </textElement>
-	            <textFieldExpression><![CDATA["Reporte de Artistas"]]></textFieldExpression>
+	            <textFieldExpression><![CDATA["Artists Report"]]></textFieldExpression>
 	        </textField>
 	    </band>
 	</title>
     
+	<columnHeader>
+	    <band height="20">
+	        <staticText>
+	            <reportElement x="0" y="0" width="200" height="20" backcolor="#D3D3D3" mode="Opaque"/>
+	            <box>
+	                <pen lineWidth="1.0"/>
+	            </box>
+	            <textElement textAlignment="Center" verticalAlignment="Middle">
+	                <font isBold="true"/>
+	            </textElement>
+	            <text><![CDATA[Artist]]></text>
+	        </staticText>
+	
+	        <staticText>
+	            <reportElement x="200" y="0" width="200" height="20" backcolor="#D3D3D3" mode="Opaque"/>
+	            <box>
+	                <pen lineWidth="1.0"/>
+	            </box>
+	            <textElement textAlignment="Center" verticalAlignment="Middle">
+	                <font isBold="true"/>
+	            </textElement>
+	            <text><![CDATA[Country]]></text>
+	        </staticText>
+	    </band>
+	</columnHeader>
 
     <detail>
-        <band height="20">
-            <textField>
-                <reportElement x="0" y="0" width="200" height="20"/>
-                <textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
-            </textField>
-            <textField>
-                <reportElement x="200" y="0" width="200" height="20"/>
-                <textFieldExpression><![CDATA[$F{country}]]></textFieldExpression>
-            </textField>
-        </band>
-    </detail>
+	    <band height="20">
+	        <textField>
+	            <reportElement x="0" y="0" width="200" height="20"/>
+	            <box>
+	                <pen lineWidth="0.5"/>
+	            </box>
+	            <textElement textAlignment="Center" verticalAlignment="Middle"/>
+	            <textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+	        </textField>
+	
+	        <textField>
+	            <reportElement x="200" y="0" width="200" height="20"/>
+	            <box>
+	                <pen lineWidth="0.5"/>
+	            </box>
+	            <textElement textAlignment="Center" verticalAlignment="Middle"/>
+	            <textFieldExpression><![CDATA[$F{country}]]></textFieldExpression>
+	        </textField>
+	    </band>
+	</detail>
 </jasperReport>

@@ -1,16 +1,13 @@
 package com.example.demo.service;
+
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
-
 import com.example.demo.DTO.AllArtistsDTO;
-import com.example.demo.DTO.ArtistDetailDTO;
-
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 

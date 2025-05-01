@@ -1,14 +1,13 @@
 package com.example.demo.controller;
+
 import com.example.demo.DTO.AllArtistsDTO;
-import com.example.demo.DTO.ArtistDetailDTO;
 import com.example.demo.service.ArtistReportService;
 import com.example.demo.service.ArtistService;
-
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
+@CrossOrigin(value = "http://localhost:4200")
 @RestController
 @RequestMapping("api/artist")
 public class ArtistReportController {
