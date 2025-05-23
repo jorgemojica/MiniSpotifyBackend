@@ -30,6 +30,9 @@ public class User {
 	@Column(name = "email")
 	private String email;
 	
+	@Column(name = "role", nullable = false)
+	private String role;
+	
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
 	private Subscription subscription;
 	
@@ -40,12 +43,12 @@ public class User {
 		
 	}
 
-	public User(Long id, String username, String password, String email, Subscription subscription,
-			List<Playlist> playlists) {
+	public User(Long id, String username, String password, String email, String role, Subscription subscription, List<Playlist> playlists) {
 		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.email = email;
+		this.role = "ROLE_USER";
 		this.subscription = subscription;
 		this.playlists = playlists;
 	}
@@ -82,6 +85,14 @@ public class User {
 		this.email = email;
 	}
 	
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
 	public Subscription getSubscription() {
 		return subscription;
 	}

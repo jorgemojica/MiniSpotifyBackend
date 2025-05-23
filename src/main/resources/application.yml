@@ -1,6 +1,9 @@
 server:
   port: 8080
 
+jwt:
+  secret: GZ8uP1$Xv@3sTf92qL!zYhVrKbEwNmAx
+
 spring:
   jpa:
     hibernate:

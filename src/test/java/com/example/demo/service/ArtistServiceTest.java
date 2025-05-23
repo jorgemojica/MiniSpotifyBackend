@@ -1,22 +1,17 @@
 package com.example.demo.service;
 
-import static org.hamcrest.CoreMatchers.nullValue;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.example.demo.DTO.AllArtistsDTO;
 import com.example.demo.DTO.ArtistDetailDTO;
 import com.example.demo.entity.Artist;
-import com.example.demo.entity.Playlist;
 import com.example.demo.entity.Track;
 import com.example.demo.repository.ArtistRepository;
 
@@ -31,7 +26,7 @@ public class ArtistServiceTest {
 
     @BeforeEach
     void setup() {
-        artistRepository.deleteAll(); // Limpiar la base antes de cada test
+        artistRepository.deleteAll();
         
         Artist artist1 = new Artist(null, "Black Veil Brides", "US", "bvb.jpg", null);
         Artist artist2 = new Artist(null, "All Time Low", "US", "ATL.jpg", null);

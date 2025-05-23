@@ -1,13 +1,11 @@
 package com.example.demo.service;
 
-
-
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import com.example.demo.entity.User;
 import com.example.demo.repository.UserRepository;
 
@@ -36,6 +34,10 @@ public class UserService {
 	}
 	
 	public User createUser(User userParam) {
+		String userPassword = userParam.getPassword();
+		PasswordEncoder encoder = new BCryptPasswordEncoder();;
+		String encodedPassword = encoder.encode(userPassword);
+		userParam.setPassword(encodedPassword);
 		return this.userRepository.save(userParam); 
 	}
 	
@@ -54,13 +56,20 @@ public class UserService {
 		Optional<User> userOpt = this.userRepository.findById(id);
 		if(userOpt.isPresent()) {
 			User user = userOpt.get();
-			user.setPassword(userParam.getPassword());
 			user.setEmail(userParam.getEmail());
+			PasswordEncoder encoder = new BCryptPasswordEncoder();;
+			String encodedPassword = encoder.encode(userParam.getPassword());
+			user.setPassword(encodedPassword);
 			return this.userRepository.save(user);
 		}
 		else {
 			return null;
 		}
+	}
+	
+	public User findByUsername(String username) {
+		return userRepository.findByUsername(username)
+		        .orElseThrow(() -> new RuntimeException("User not found"));
 	}
 
 }
