@@ -35,6 +35,7 @@ public class SecurityConfig {
         	.and()
             .authorizeHttpRequests()
             .requestMatchers(new AntPathRequestMatcher("/auth/**")).permitAll()
+            .requestMatchers(new AntPathRequestMatcher("/api/user/create")).permitAll()
             //.requestMatchers(new AntPathRequestMatcher("/**")).permitAll()
             .anyRequest().authenticated()
             .and()
