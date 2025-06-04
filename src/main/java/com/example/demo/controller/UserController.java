@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.example.demo.DTO.UserDetailDTO;
 import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
 
@@ -34,14 +36,8 @@ public class UserController {
 	}
 	
 	@GetMapping(value = "{id}")
-	public ResponseEntity<User> getUserById(@PathVariable("id") Long id){
-		Optional<User> userOptional = this.userService.getUserById(id);
-		if(userOptional.isPresent()) {
-			return ResponseEntity.ok(userOptional.get());
-		}
-		else {
-			return null;
-		}
+	public ResponseEntity<UserDetailDTO> getUserById(@PathVariable("id") Long id){
+		return ResponseEntity.ok(this.userService.getUserById(id));
 	}
 	
 	@PostMapping(value = "/create")
@@ -49,14 +45,19 @@ public class UserController {
 		return ResponseEntity.ok(this.userService.createUser(user));
 	}
 	
-	@DeleteMapping(value = "{id}")
-	public ResponseEntity<String> deleteUser(@PathVariable("id") Long id){
-		return ResponseEntity.ok(this.userService.deleteUser(id));
-	}
+//	@DeleteMapping(value = "{id}")
+//	public ResponseEntity<String> deleteUser(@PathVariable("id") Long id){
+//		return ResponseEntity.ok(this.userService.deleteUser(id));
+//	}
 	
 	@PatchMapping(value = "{id}")
-	public ResponseEntity<User> updateUser(@PathVariable("id") Long id, @RequestBody User userParam){
+	public ResponseEntity<UserDetailDTO> updateUser(@PathVariable("id") Long id, @RequestBody User userParam){
 		return ResponseEntity.ok(this.userService.updateUser(id, userParam));
+	}
+	
+	@GetMapping(value = "/username/{username}")
+	public ResponseEntity<UserDetailDTO> findByUsername(@PathVariable("username") String username){
+		return ResponseEntity.ok(this.userService.findByUsername(username));
 	}
 
 }

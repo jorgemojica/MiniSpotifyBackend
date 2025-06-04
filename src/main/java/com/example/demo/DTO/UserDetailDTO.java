@@ -1,67 +1,27 @@
-package com.example.demo.entity;
+package com.example.demo.DTO;
 
 import java.util.List;
+import com.example.demo.entity.Playlist;
+import com.example.demo.entity.Subscription;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "user")
-public class User {
+public class UserDetailDTO {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
 	private Long id;
-	
-	@Column(name = "username")
 	private String username;
-	
-	@Column(name = "password")
 	private String password;
-	
-	@Column(name = "email")
 	private String email;
-	
-	@Column(name = "name")
 	private String name;
-	
-	@Column(name = "image")
 	private String image;
-	
-	@Column(name = "role", nullable = false)
 	private String role;
-	
-	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
 	private Subscription subscription;
-	
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Playlist> playlists;
 	
-	public User() {
+	public UserDetailDTO() {
 		
 	}
 
-	public User(Long id, String username, String password, String email, String name, String image, String role, Subscription subscription, List<Playlist> playlists) {
-		this.id = id;
-		this.username = username;
-		this.password = password;
-		this.email = email;
-		this.name = name;
-		this.image = image;
-		this.role = "ROLE_USER";
-		this.subscription = subscription;
-		this.playlists = playlists;
-	}
-	
-	public User(Long id, String username, String password, String email, String name, String image, String role) {
+	public UserDetailDTO(Long id, String username, String password, String email, String name, String image, String role,
+			Subscription subscription, List<Playlist> playlists) {
 		this.id = id;
 		this.username = username;
 		this.password = password;
@@ -69,6 +29,18 @@ public class User {
 		this.name = name;
 		this.image = "";
 		this.role = "ROLE_USER";
+		this.subscription = subscription;
+		this.playlists = playlists;
+	}
+	
+	public UserDetailDTO(Long id, String username, String email, String password, String name, String image, String role) {
+		this.id = id;
+		this.username = username;
+		this.email = email;
+		this.password = password;
+		this.name = name;
+		this.image = image;
+		this.role = role;
 	}
 
 	public Long getId() {
@@ -102,7 +74,7 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 	public String getName() {
 		return name;
 	}

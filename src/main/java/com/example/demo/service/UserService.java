@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import com.example.demo.DTO.UserDetailDTO;
 import com.example.demo.entity.User;
 import com.example.demo.repository.UserRepository;
 
@@ -23,14 +25,9 @@ public class UserService {
 		return this.userRepository.findAll();
 	}
 	
-	public Optional<User> getUserById(Long id){
-		Optional<User> userOptional = this.userRepository.findById(id); 
-		if(userOptional.isPresent()) {
-			return userOptional;
-		}
-		else {
-			return null;
-		}
+	public UserDetailDTO getUserById(Long id){
+		User user = this.userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+		return new UserDetailDTO(user.getId(), user.getUsername(), user.getEmail(), user.getPassword(), user.getName(), user.getImage(), user.getRole());
 	}
 	
 	public User createUser(User userParam) {
@@ -41,35 +38,40 @@ public class UserService {
 		return this.userRepository.save(userParam); 
 	}
 	
-	public String deleteUser(Long id) {
-		Optional<User> user = this.getUserById(id);
-		if(user.isPresent()) {
-			this.userRepository.delete(user.get());
-			return "The user \"" + user.get().getUsername() + "\" has been deleted successfully";
-		}
-		else {
-			return "The user \"" + user.get().getUsername() + "\" has not been deleted successfully";
-		}
+//	public String deleteUser(Long id) {
+//		Optional<User> user = this.getUserById(id);
+//		if(user.isPresent()) {
+//			this.userRepository.delete(user.get());
+//			return "The user \"" + user.get().getUsername() + "\" has been deleted successfully";
+//		}
+//		else {
+//			return "The user \"" + user.get().getUsername() + "\" has not been deleted successfully";
+//		}
+//	}
+	
+	public UserDetailDTO updateUser(Long id, User userParam) {
+		User user = this.userRepository.findById(id).
+				orElseThrow(() -> new RuntimeException("User not found"));
+		
+		user.setEmail(userParam.getEmail());
+		user.setName(userParam.getName());
+		user.setImage(userParam.getImage());
+		
+//		PasswordEncoder encoder = new BCryptPasswordEncoder();;
+//		String encodedPassword = encoder.encode(userParam.getPassword());
+//		user.setPassword(encodedPassword);
+		
+		this.userRepository.save(user);
+		
+		return new UserDetailDTO(user.getId(), user.getUsername(), user.getEmail(), user.getPassword(), user.getName(), user.getImage(), user.getRole());
+		
 	}
 	
-	public User updateUser(Long id, User userParam) {
-		Optional<User> userOpt = this.userRepository.findById(id);
-		if(userOpt.isPresent()) {
-			User user = userOpt.get();
-			user.setEmail(userParam.getEmail());
-			PasswordEncoder encoder = new BCryptPasswordEncoder();;
-			String encodedPassword = encoder.encode(userParam.getPassword());
-			user.setPassword(encodedPassword);
-			return this.userRepository.save(user);
-		}
-		else {
-			return null;
-		}
-	}
-	
-	public User findByUsername(String username) {
-		return userRepository.findByUsername(username)
+	public UserDetailDTO findByUsername(String username) {
+		User user = userRepository.findByUsername(username)
 		        .orElseThrow(() -> new RuntimeException("User not found"));
+		
+		return new UserDetailDTO(user.getId(), user.getUsername(), user.getEmail(), user.getPassword(), user.getName(), user.getImage(), user.getRole());
 	}
 
 }
