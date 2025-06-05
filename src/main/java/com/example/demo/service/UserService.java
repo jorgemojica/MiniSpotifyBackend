@@ -1,13 +1,14 @@
 package com.example.demo.service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Collections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.DTO.UserDetailDTO;
+import com.example.demo.entity.Role;
 import com.example.demo.entity.User;
 import com.example.demo.repository.UserRepository;
 
@@ -27,7 +28,7 @@ public class UserService {
 	
 	public UserDetailDTO getUserById(Long id){
 		User user = this.userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
-		return new UserDetailDTO(user.getId(), user.getUsername(), user.getEmail(), user.getPassword(), user.getName(), user.getImage(), user.getRole());
+		return new UserDetailDTO(user.getId(), user.getUsername(), user.getEmail(), user.getPassword(), user.getName(), user.getImage(), user.getRoles());
 	}
 	
 	public User createUser(User userParam) {
@@ -35,6 +36,7 @@ public class UserService {
 		PasswordEncoder encoder = new BCryptPasswordEncoder();;
 		String encodedPassword = encoder.encode(userPassword);
 		userParam.setPassword(encodedPassword);
+		userParam.setRoles(userParam.getRoles().isEmpty() ? Collections.singleton(Role.ROLE_USER) : userParam.getRoles());
 		return this.userRepository.save(userParam); 
 	}
 	
@@ -63,7 +65,7 @@ public class UserService {
 		
 		this.userRepository.save(user);
 		
-		return new UserDetailDTO(user.getId(), user.getUsername(), user.getEmail(), user.getPassword(), user.getName(), user.getImage(), user.getRole());
+		return new UserDetailDTO(user.getId(), user.getUsername(), user.getEmail(), user.getPassword(), user.getName(), user.getImage(), user.getRoles());
 		
 	}
 	
@@ -71,7 +73,7 @@ public class UserService {
 		User user = userRepository.findByUsername(username)
 		        .orElseThrow(() -> new RuntimeException("User not found"));
 		
-		return new UserDetailDTO(user.getId(), user.getUsername(), user.getEmail(), user.getPassword(), user.getName(), user.getImage(), user.getRole());
+		return new UserDetailDTO(user.getId(), user.getUsername(), user.getEmail(), user.getPassword(), user.getName(), user.getImage(), user.getRoles());
 	}
 
 }

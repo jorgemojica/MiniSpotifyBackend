@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import java.util.Collections;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,7 +23,9 @@ public class CustomUserDetailsService implements UserDetailsService {
 	    return new org.springframework.security.core.userdetails.User(
 	        user.getUsername(),
 	        user.getPassword(),
-	        Collections.singletonList(new SimpleGrantedAuthority(user.getRole() == null || user.getRole().trim().isEmpty() ? "ROLE_USER" : user.getRole()))
+	        user.getRoles().stream()
+	        .map(role -> new SimpleGrantedAuthority(role.name()))
+	        .collect(Collectors.toList())
 	    );
 	}
 

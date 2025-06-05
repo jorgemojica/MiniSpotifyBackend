@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,6 +35,7 @@ public class ArtistController {
 		this.artistService = artistService;
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
 	@GetMapping
 	@Operation(summary = "Listing all artists")
 	public List<AllArtistsDTO> listArtists(){
@@ -52,7 +54,8 @@ public class ArtistController {
 		return ResponseEntity.ok(this.artistService.deleteArtist(id));
 	}
 	
-	@PostMapping
+	@PreAuthorize("hasRole('ADMIN')")
+	@PostMapping("/create")
 	@Operation(summary = "Creating an artist by passing artist data")
 	public ResponseEntity<Artist> createArtist(@RequestBody Artist newArtist) {
 		Artist artist = this.artistService.createArtist(newArtist);

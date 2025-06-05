@@ -7,6 +7,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -20,6 +21,7 @@ import com.example.demo.service.JwtAuthFilter;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
 	
 	@Autowired
@@ -36,7 +38,8 @@ public class SecurityConfig {
             .authorizeHttpRequests()
             .requestMatchers(new AntPathRequestMatcher("/auth/**")).permitAll()
             .requestMatchers(new AntPathRequestMatcher("/api/user/create")).permitAll()
-            //.requestMatchers(new AntPathRequestMatcher("/**")).permitAll()
+//            .requestMatchers(new AntPathRequestMatcher("/api/artist/report")).hasAnyRole("ADMIN")
+//            .requestMatchers(new AntPathRequestMatcher("/api/artist/report")).hasAnyAuthority("ROLE_ADMIN")
             .anyRequest().authenticated()
             .and()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

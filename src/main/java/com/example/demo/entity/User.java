@@ -1,10 +1,15 @@
 package com.example.demo.entity;
 
+import java.util.HashSet;
 import java.util.List;
-
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,8 +41,9 @@ public class User {
 	@Column(name = "image")
 	private String image;
 	
-	@Column(name = "role", nullable = false)
-	private String role;
+	@ElementCollection(fetch = FetchType.EAGER)
+	@Enumerated(EnumType.STRING)
+	private Set<Role> roles;
 	
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
 	private Subscription subscription;
@@ -49,26 +55,27 @@ public class User {
 		
 	}
 
-	public User(Long id, String username, String password, String email, String name, String image, String role, Subscription subscription, List<Playlist> playlists) {
+	public User(Long id, String username, String password, String email, String name, String image, Set<Role> roles,
+			Subscription subscription, List<Playlist> playlists) {
 		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.email = email;
 		this.name = name;
 		this.image = image;
-		this.role = "ROLE_USER";
+		this.roles = new HashSet<>();
 		this.subscription = subscription;
 		this.playlists = playlists;
 	}
 	
-	public User(Long id, String username, String password, String email, String name, String image, String role) {
+	public User(Long id, String username, String password, String email, String name, String image, Set<Role> roles) {
 		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.email = email;
 		this.name = name;
-		this.image = "";
-		this.role = "ROLE_USER";
+		this.image = image;
+		this.roles = new HashSet<>();
 	}
 
 	public Long getId() {
@@ -119,12 +126,12 @@ public class User {
 		this.image = image;
 	}
 
-	public String getRole() {
-		return role;
+	public Set<Role> getRoles() {
+		return roles;
 	}
 
-	public void setRole(String role) {
-		this.role = role;
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}
 
 	public Subscription getSubscription() {

@@ -4,6 +4,7 @@ import com.example.demo.DTO.AllArtistsDTO;
 import com.example.demo.service.ArtistReportService;
 import com.example.demo.service.ArtistService;
 import org.springframework.http.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class ArtistReportController {
         this.artistService = artistService;
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/report")
     public ResponseEntity<byte[]> getArtistsDTOReport() {
         try {

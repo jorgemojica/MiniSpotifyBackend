@@ -1,7 +1,11 @@
 package com.example.demo.DTO;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import com.example.demo.entity.Playlist;
+import com.example.demo.entity.Role;
 import com.example.demo.entity.Subscription;
 
 public class UserDetailDTO {
@@ -12,7 +16,7 @@ public class UserDetailDTO {
 	private String email;
 	private String name;
 	private String image;
-	private String role;
+	private Set<Role> roles;
 	private Subscription subscription;
 	private List<Playlist> playlists;
 	
@@ -20,7 +24,7 @@ public class UserDetailDTO {
 		
 	}
 
-	public UserDetailDTO(Long id, String username, String password, String email, String name, String image, String role,
+	public UserDetailDTO(Long id, String username, String password, String email, String name, String image, Set<Role> roles,
 			Subscription subscription, List<Playlist> playlists) {
 		this.id = id;
 		this.username = username;
@@ -28,19 +32,19 @@ public class UserDetailDTO {
 		this.email = email;
 		this.name = name;
 		this.image = "";
-		this.role = "ROLE_USER";
+		this.roles = new HashSet<>();
 		this.subscription = subscription;
 		this.playlists = playlists;
 	}
 	
-	public UserDetailDTO(Long id, String username, String email, String password, String name, String image, String role) {
+	public UserDetailDTO(Long id, String username, String email, String password, String name, String image, Set<Role> roles) {
 		this.id = id;
 		this.username = username;
 		this.email = email;
 		this.password = password;
 		this.name = name;
 		this.image = image;
-		this.role = role;
+		this.roles = new HashSet<>();
 	}
 
 	public Long getId() {
@@ -91,12 +95,12 @@ public class UserDetailDTO {
 		this.image = image;
 	}
 
-	public String getRole() {
-		return role;
+	public Set<Role> getRoles() {
+		return roles;
 	}
 
-	public void setRole(String role) {
-		this.role = role;
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}
 
 	public Subscription getSubscription() {
